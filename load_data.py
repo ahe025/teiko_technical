@@ -7,7 +7,7 @@ conn = sqlite3.connect("cell_count.db")
 
 df.to_sql("cell_count", conn, if_exists = "replace", index = False)
 
-# CHECK TABLE
+# CHECKS
 # df_check = pd.read_sql_query("SELECT * FROM cell_count", conn)
 # print(df_check.head())
 
@@ -16,7 +16,6 @@ df.to_sql("cell_count", conn, if_exists = "replace", index = False)
 
 # print(df.shape)
 # print(df_check.shape)
-#
 
 conn.close()
 print("Database created successfully.")
