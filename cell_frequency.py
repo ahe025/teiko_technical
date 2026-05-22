@@ -18,7 +18,7 @@ cell_frequencies = df.melt(
     value_name = "count"
 )
 
-cell_frequencies["percentage"] = cell_frequencies["count"] / cell_frequencies["total_count"]
+cell_frequencies["percentage"] = cell_frequencies["count"] / cell_frequencies["total_count"] * 100
 
 cell_frequencies.to_sql("cell_frequencies", conn, if_exists = "replace", index = False)
 
@@ -28,8 +28,3 @@ cell_frequencies.to_sql("cell_frequencies", conn, if_exists = "replace", index =
 
 conn.close()
 print(cell_frequencies)
-
-# CHECKS
-# print(cell_frequencies.head())
-# print(cell_frequencies.shape)
-
