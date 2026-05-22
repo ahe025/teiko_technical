@@ -1,6 +1,8 @@
 # Compare differences in cell population relative frequencies of melanoma patients 
 # receiving miraclib who respond (responders) versus those who do not (non-responders),
 # only including PBMC samples.
+# Reports which cell populations have a significant difference in relative frequencies 
+# between responders and non-responders using statistical tests.
 
 import pandas as pd
 import sqlite3
@@ -30,6 +32,7 @@ for i, cell in enumerate(populations):
                                     "WHERE population == '" + cell + "'" \
                                     "AND sample IN (SELECT sample FROM cell_count " \
                                     + query_no + ")", conn)
+    # Box plots
     axes[i].boxplot([response_yes["percentage"].tolist(), response_no["percentage"].tolist()], labels = ['Responders', 'Non-responders'])
     axes[i].set_title(cell + ' Relative frequencies (%)')
 
@@ -43,14 +46,15 @@ for i, cell in enumerate(populations):
         "significant": p_value < 0.05
     })
 
+# Show box plots
 axes[5].set_visible(False)
 fig.suptitle("Cell population relative frequencies in responders vs. non-responders (Melanoma patients receiving miraclib, PBMC samples only)")
 plt.tight_layout()
 plt.show()
 
+# Mann-Whitney U test results
 mwu_results_df = pd.DataFrame(mwu_results)
 print(mwu_results_df)
-
 mwu_results_df.to_sql("mwu_results", conn, if_exists = "replace", index = False)
 
 conn.close()
