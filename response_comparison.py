@@ -20,13 +20,13 @@ axes = axes.flatten()
 populations = ["b_cell", "cd8_t_cell", "cd4_t_cell", "nk_cell", "monocyte"]
 for i, cell in enumerate(populations):
     response_yes = pd.read_sql_query("SELECT percentage FROM cell_frequencies " \
-                               "WHERE population == '" + cell + "'" \
-                               "AND sample IN (SELECT sample FROM cell_count " \
-                               + query_yes + ")", conn)
+                                     "WHERE population == '" + cell + "'" \
+                                     "AND sample IN (SELECT sample FROM cell_count " \
+                                     + query_yes + ")", conn)
     response_no = pd.read_sql_query("SELECT percentage FROM cell_frequencies " \
-                               "WHERE population == '" + cell + "'" \
-                               "AND sample IN (SELECT sample FROM cell_count " \
-                               + query_no + ")", conn)
+                                    "WHERE population == '" + cell + "'" \
+                                    "AND sample IN (SELECT sample FROM cell_count " \
+                                    + query_no + ")", conn)
     axes[i].boxplot([response_yes["percentage"].tolist(), response_no["percentage"].tolist()], labels = ['Responders', 'Non-responders'])
     axes[i].set_title(cell + ' Relative frequencies (%)')
 
