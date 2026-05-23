@@ -33,4 +33,4 @@ Run the Python programs in the following order:
 * The counts `project_count`, `response_count`, and `sex_count` are saved as SQLite Databases to [cell_count.db](https://github.com/ahe025/teiko_technical/blob/main/cell_count.db).
 
 ## Dashboard link
-[link here](google.com)
+https://teikotechnicaldashboard.streamlit.app/
