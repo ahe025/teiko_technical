@@ -11,6 +11,6 @@ df = pd.read_sql_query("SELECT b_cell FROM cell_count " \
                        "AND response == 'yes'" \
                        "AND time_from_treatment_start == 0", conn)
 
-print(df.mean())
+print(df.mean()) # 10206.150515
 
 conn.close()
