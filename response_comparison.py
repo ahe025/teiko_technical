@@ -50,7 +50,9 @@ for i, cell in enumerate(populations):
 axes[5].set_visible(False)
 fig.suptitle("Cell population relative frequencies in responders vs. non-responders (Melanoma patients receiving miraclib, PBMC samples only)")
 plt.tight_layout()
+plt.savefig("boxplots.png")
 plt.show()
+plt.close()
 
 # Mann-Whitney U test results
 mwu_results_df = pd.DataFrame(mwu_results)
