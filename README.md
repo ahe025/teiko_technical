@@ -13,7 +13,7 @@ Run the Python programs in the following order:
 * For larger-scale datasets with hundreds of projects and thousands of samples, the schema could be normalized into related tables such as `projects`, `subjects`, `samples`, and `cell_counts`, linked through primary and foreign keys. This design would improve query performance and support more advanced analytics such as longitudinal analysis, multi-treatment comparisons, and integration of additional cell populations or assay types.
 
 ## Code structure overview and design explanation
-A brief overview of your code structure and an explanation of why you designed it the way you did.
+
 ### Initial Analysis - Data Overview: [cell_frequency.py](https://github.com/ahe025/teiko_technical/blob/main/cell_frequency.py)
 * In `cell_count`, the total count of all cell populations is first calculated and added as the column `total_count`.
 * The `cell_count` DataFrame is then melted so that each sample holds five rows for each of the five cell populations. Now, the relative frequencies of each population are calculated as a percentage, and this data is stored in `cell_frequencies`.
@@ -27,7 +27,10 @@ A brief overview of your code structure and an explanation of why you designed i
 * The MWU test results, `mwu_results`, are saved as an SQLite Database to [cell_count.db](https://github.com/ahe025/teiko_technical/blob/main/cell_count.db).
 
 ### Data Subset Analysis: [subset_analysis.py](https://github.com/ahe025/teiko_technical/blob/main/subset_analysis.py)
-* blah
+* `query` stores a string specifying the desired query of all melanoma PBMC samples at baseline (time = 0) from patients treated with miraclib. `baseline_df` stores this specified set using `query`, and this set saved as an SQLite Database, `baseline_data`, to [cell_count.db](https://github.com/ahe025/teiko_technical/blob/main/cell_count.db).
+* To count the number of samples from each project, pandas `value_counts()` is used on the `project` column of `baseline_df`.
+* To count the number of subjects who were responders/non-responders and males/females, pandas `groupby()` is first used on the `response` or `sex` categories, then the `subject` column is selected, and `nunique()` is called. Since we are counting subjects instead of samples, this method does not assume that the number of subjects equals the number of samples (although it is true in this case).
+* The counts `project_count`, `response_count`, and `sex_count` are saved as SQLite Databases to [cell_count.db](https://github.com/ahe025/teiko_technical/blob/main/cell_count.db).
 
 ## Dashboard link
 [link here](google.com)
